@@ -20,6 +20,7 @@ a = "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1
 import requests
 import shutil
 import base64
+import uuid
 
 # r = requests.get(a, stream=True)
 # print("rr", r.text)
@@ -63,6 +64,101 @@ gkyc_data = {
    "updated_at":"2022-07-06T17:36:40.258274+06:00"
 }
 
-data  = gkyc_data["data"].replace("'", '"')
+# data  = gkyc_data["data"].replace("'", '"')
 
-print(data)
+# print(data)
+
+
+api = {
+   "ENQUIRE_ACCOUNT_VALIDATION" : '/live/v7/Account/EnquireAccountValidation',
+   "ENQUIRE_CUSTOMER" : '/live/v7/Customer/EnquireCustomer',
+   "ENQUIRE_DEPOSIT_ACCOUNT" : '/live/v7/Account/EnquireDepositAccount',
+   "ENQUIRE_CUSTOMER_LINKED_ACCOUNTS" : '/live/v7/Customer/EnquireCustomerLinkedAccounts',
+   "ENQUIRE_LOAN_ACCOUNT" : '/live/v7/Account/EnquireLoanAccount',
+   "ENQUIRE_FD_AND_RD_ACCOUNT" : '/live/v7/Account/EnquireFDAndRDAccount',
+   "ENQUIRE_DEPOSIT_ONLINE_STATEMENT" : '/live/v7/Account/EnquireDepositOnlineStatement',
+   "ENQUIRE_DEPOSIT_TRANSACTION" : '/live/v7/Account/EnquireDepositTransaction',
+   "SINGLE_DEBIT_MULTI_CREDIT" : '/live/v7/Transaction/SingleDebitMultiCredit',
+   "SINGLE_DEBIT_MULTI_CREDIT_CORRECTION" : '/live/v7/Transaction/SingleDebitMultiCreditCorrection',
+   "ENQUIRE_LOAN_ONLINE_STATEMENT" : '/live/v7/Account/EnquireLoanOnlineStatement',
+   "REPAY_LOAN_BY_TRANSFER" : '/live/v7/Loan/RepayLoanByTransfer',
+   "ORDER_CHEQUE_BOOK" : '/live/v7/Cheque/ORDER_CHEQUE_BOOK',
+   "FETCH_CHECKBOOK_STATUS" : '/live/v7/Cheque/FetchChequeBookStatus',
+   "CREATE_CUSTOMER" : '/live/v7/Customer/CreateCustomer',
+   "UPDATE_CUSTOMER" : '/live/v7/Customer/UploadCustomerDetails',
+   "ENQUIRE_CCOD_ACCOUNT" : '/live/v7/Account/EnquireCCODAccount',
+   "BEFTN_TRANSFER" : '/live/v7/BEFTN_RTGS/DebitNEFTByTransfer',
+   "ENQUIRE_RTGS_BEFTN" : '/live/v7/BEFTN_RTGS/EnquireUTRForRTGSBEFTN',
+   "CREATE_DEPOSITE_ACCOUNT" : '/live/v7/Account/CreateDepositAccount',
+   "ENQUIRE_UUID" : '/live/v7/Transaction/EnquireUUID',
+   "TRANSACTIONAL_PROFILE_CAPTURE" : '/live/v7/Transaction/TransactionProfileCapture'
+}
+
+account = {
+   "CURRENT_ACCOUNT" : 'Current Account',
+   "SAVINGS_ACCOUNT" : 'Saving Account',
+   "SALARY_ACCOUNT" : 'Salary Account',
+   "FIXED_DEPOSIT_ACCOUNT" : 'Fixed Deposit Account',
+   "RECURRING_DEPOSIT_ACCOUNT" : 'Recurring Deposit Account',
+   "NRI_ACCOUNT" : 'NRI Account',
+   "NRO_SAVING_ACCOUNT" : 'NRO (Non-resident ordinary) Saving Account',
+   "NRE_SAVING_ACCOUNT" : 'NRE (Non-resident external ) Saving Account',
+   "FCNR_SAVING_ACCOUNT" : 'FCNR (Foreign currency non-resident) Account',
+   "DEMAT_SAVING_ACCOUNT" : 'DEMAT (Dematerialized) Saving Account',
+}
+
+transactions = {
+   "BKASH_TRAnSACTION" : 'BKASH Transaction',
+   "NAGAD_TRANSACTION" : 'Nagag Transaction',
+   "OK_WALLET_TRANSACTION" : 'OK Transaction',
+   "TOP_UP" : 'Top Up',
+   "BANGLALINK_TOP_UP" : 'Banglalink Link Top Up',
+   "ROBI_TOP_UP" : 'Robi Top Up',
+   "AIRTEL_TOP_UP" : 'Airtel Top Up',
+   "GP_TOP_UP" : 'Grameenphone Top Up',
+   "TELETALK_TOP_UP" : 'Teletalk Top Up',
+   "BILL_PAY" : 'Bill Pay',
+   "CREDIT_CARD_BILL_PAY" : 'Credit Card Bill Pay',
+   "DPDC_BILL_PAY" : 'DPDC Bill Pay',
+   "TITAS_BILL_PAY" : 'TITAS Bill Pay',
+   "WASA_BILL_PAY" : 'WASA Bill Pay',
+   "INTERNET_BILL_PAY" : 'Internet Bill Pay',
+   "ADD_MONEY" : 'Add Money',
+   "REQUEST_MONEY" : 'Request Money',
+}
+
+# for key , value in api.items():
+#    with open('api_category.ts', 'a') as file:
+#       file.write(f"""
+#          [MiddlewareJblTcsServiceJblTcsApiCategories.{key}]: {{
+#         id: '{uuid.uuid4()}',
+#         name: '{key.replace('_', ' ').capitalize()}',
+#         name_bn: '{key.replace('_', ' ').capitalize()}',
+#         api_url : '{value}',
+#         is_active: true,
+#         deleted_at: null,
+#       }},
+#       """)
+# for key , value in account.items():
+#    with open('account_category.ts', 'a') as file:
+#       file.write(f"""
+#          [MiddlewareJblTcsServiceJblTcsAccountCategories.{key}]: {{
+#         id: '{uuid.uuid4()}',
+#         name: '{value}',
+#         name_bn: '{value}',
+#         is_active: true,
+#         deleted_at: null,
+#       }},
+#       """)
+
+for key , value in transactions.items():
+   with open('transaction_category.ts', 'a') as file:
+      file.write(f"""
+         [MiddlewareJblTcsServiceJblTcsTransactionCategories.{key}]: {{
+        id: '{uuid.uuid4()}',
+        name: '{value}',
+        name_bn: '{value}',
+        is_active: true,
+        deleted_at: null,
+      }},
+      """)
